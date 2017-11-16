@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wez.mybatis.dao.GoodsDao">
+	
+	<resultMap type="goods" id="goodsResultMap">
+		<result column="goods_id" property="goodsId"/>
+		<result column="shop_id" property="shopId"/>
+		<result column="goods_name" property="goodsName"/>
+		<result column="goods_price" property="goodsPrice"/>
+		<result column="goods_stock" property="goodsStock"/>
+	</resultMap>
+	
+	<!-- <parameterMap type="goods" id="goodsParamMap">
+		<parameter property="goodsId" resultMap="goodsResultMap" />
+		<parameter property="shopId" resultMap="goodsResultMap" />
+		<parameter property="goodsName" resultMap="goodsResultMap" />
+		<parameter property="goodsPrice" resultMap="goodsResultMap" />
+		<parameter property="goodsStock" resultMap="goodsResultMap" />
+	</parameterMap> -->
+	
+	<insert id="saveGoods">
+		insert into goods (shop_id, goods_name, goods_price, goods_stock)
+		value(#{shopId}, #{goodsName}, #{goodsPrice}, #{goodsStock})
+	</insert>
+	
+	<delete id="removeGoods">
+		delete from goods
+		where goods_id = #{goodsId}
+	</delete>
+	
+	<update id="modifyGoods">
+		update goods set shop_id=#{shopId}, goods_name=#{goodsName},
+			goods_price=#{goodsPrice}, goods_stock=#{goodsStock}
+		where goods_id = #{goodsId}
+	</update>
+	
+	<select id="queryForGoods">
+		select * from goods
+		where shop_id = #{shopId}
+	</select>
+	
+	<select id="queryForList" resultMap="goodsResultMap">
+		select * from goods
+	</select>
+	
+	
+</mapper>
